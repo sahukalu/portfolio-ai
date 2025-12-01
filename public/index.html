@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Kalu Ch Sahu | DevOps & AKS Engineer</title>
+    <style>
+        /* --- 1. CSS VARIABLES --- */
+        :root {
+            --card-bg: rgba(10, 15, 30, 0.9); 
+            --accent: #38bdf8;         /* Azure Blue */
+            --accent-glow: rgba(56, 189, 248, 0.4);
+            --ai-color: #f472b6;       /* Pink for SK Pinkun */
+            --text-main: #ffffff;
+            --text-muted: #e2e8f0;
+            --border: #1e293b;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* --- 2. GLOBAL RESET --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            padding: 2rem;
+            min-height: 100vh;
+            position: relative;
+            background-color: #0a1726;
+        }
+
+        /* --- 3. BACKGROUND --- */
+        .background-video {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -3;
+            background-image: url('Loop Glitch GIF by Death Orgone.gif'); 
+            background-size: cover; background-position: center;
+            filter: grayscale(100%) brightness(0.35);
+        }
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.86);
+            z-index: -2;
+        }
+
+        /* --- 4. LAYOUT --- */
+        .container {
+            max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;
+        }
+
+        /* --- 5. HEADER --- */
+        .top-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 2rem; padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .header-left-group { display: flex; align-items: center; }
+        .college-logo-img {
+            height: 70px; width: auto; background-color: #fff;
+            padding: 5px; border-radius: 8px; border: 2px solid var(--accent);
+        }
+        .header-text { margin-left: 1rem; }
+        .header-text h2 { font-size: 1.2rem; color: #fff; font-weight: 700; margin: 0; }
+        .header-text p { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+        
+        .header-right-gifs { display: flex; gap: 20px; align-items: center; }
+        .gif-style {
+            height: 80px; width: 80px; object-fit: cover; border-radius: 50%;
+            border: 2px solid var(--accent); background-color: #000;
+            filter: grayscale(100%) sepia(100%) hue-rotate(170deg) saturate(200%);
+        }
+
+        /* --- 6. GRID --- */
+        .grid-collage { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+
+        /* --- 7. CARDS --- */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s;
+            display: flex; flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        h3 { color: #fff; margin-bottom: 0.5rem; font-size: 1.2rem; font-weight: 600; }
+        p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+
+        /* HERO CARD */
+        .hero-card {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(10, 15, 30, 0.9) 100%);
+            border: 1px solid var(--accent); justify-content: center;
+            grid-column: span 3;
+        }
+        .hero-title {
+            font-size: 2.8rem; font-weight: 800; margin-bottom: 0.5rem; color: #fff;
+        }
+        .role-badge {
+            display: inline-block; background: var(--accent); color: #000;
+            padding: 5px 15px; border-radius: 50px;
+            font-size: 0.85rem; font-weight: bold; margin-bottom: 1rem;
+        }
+
+        /* PHOTO CARD */
+        .photo-card { align-items: center; text-align: center; justify-content: center; grid-column: span 1; }
+        .my-photo {
+            width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
+            border: 4px solid var(--accent); margin-bottom: 1rem;
+        }
+
+        .sidebar-matrix-gif {
+            width: 100%; height: 100px; object-fit: cover;
+            border-radius: 8px; border: 1px solid var(--border);
+            margin-bottom: 15px; opacity: 0.95;
+            filter: hue-rotate(80deg) brightness(1.12); 
+        }
+
+        /* --- SK PINKUN (AI AGENT BUTTON) --- */
+        .ai-card {
+            justify-content: center; align-items: center; text-align: center;
+            border: 1px solid var(--ai-color);
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.08) 0%, rgba(10, 15, 30, 0.9) 100%);
+            cursor: pointer;
+            position: relative;
+        }
+        .ai-card:hover { border-color: #fff; box-shadow: 0 0 20px rgba(244, 114, 182, 0.4); }
+        
+        .ai-avatar { position: relative; width: 60px; height: 60px; margin-bottom: 1rem; }
+        .ai-core {
+            width: 100%; height: 100%; background-color: var(--ai-color);
+            border-radius: 50%; box-shadow: 0 0 20px var(--ai-color);
+            position: relative; z-index: 2;
+        }
+        .ai-pulse {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 50%; border: 2px solid var(--ai-color);
+            opacity: 0; z-index: 1;
+            animation: pulse-ring 2s infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.9); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        .ai-text { font-size: 0.9rem; color: #fff; font-style: italic; }
+        .click-hint { font-size: 0.7rem; color: var(--accent); margin-top: 5px; text-transform: uppercase; }
+
+        /* --- CHAT INTERFACE OVERLAY --- */
+        #chat-overlay {
+            display: none;
+            position: fixed; bottom: 20px; right: 20px;
+            width: 350px; height: 500px;
+            background-color: rgba(15, 23, 42, 0.95);
+            border: 1px solid var(--ai-color);
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            z-index: 100;
+            flex-direction: column;
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .chat-header {
+            background: linear-gradient(90deg, var(--ai-color), #8b5cf6);
+            padding: 15px; color: white; font-weight: bold;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .close-chat { cursor: pointer; font-size: 1.2rem; }
+
+        .chat-messages {
+            flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;
+        }
+        .message {
+            max-width: 80%; padding: 8px 12px; border-radius: 8px; font-size: 0.9rem;
+        }
+        .bot-msg { align-self: flex-start; background: rgba(255,255,255,0.06); border-left: 3px solid var(--ai-color); }
+        .user-msg { align-self: flex-end; background: var(--accent); color: #001; }
+
+        .chat-input-area {
+            padding: 10px; border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex; gap: 10px;
+        }
+        #user-input {
+            flex: 1; padding: 8px; border-radius: 6px; border: none; outline: none;
+            background: rgba(0,0,0,0.35); color: white;
+        }
+        #send-btn {
+            background: var(--ai-color); border: none; padding: 0 15px;
+            color: white; border-radius: 6px; cursor: pointer; font-weight: bold;
+        }
+
+        /* Buttons */
+        .linkedin-btn {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            background-color: #0077b5; color: white; text-decoration: none;
+            padding: 10px 16px; border-radius: 8px; font-weight: bold;
+            margin-bottom: 15px; width: 100%; transition: background 0.2s;
+        }
+        .linkedin-btn:hover { background-color: #005582; }
+        .linkedin-icon { width: 18px; height: 18px; fill: white; }
+
+        .btn {
+            display: inline-block; background-color: var(--accent); color: #0f172a;
+            padding: 10px 0; width: 100%; border-radius: 8px;
+            text-decoration: none; font-weight: bold; text-align: center; margin-top: auto;
+        }
+        .btn:hover { background-color: #fff; }
+
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .tag {
+            background: rgba(255, 255, 255, 0.06); color: #fff; padding: 6px 12px;
+            border-radius: 6px; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.04);
+            transition: transform 0.1s;
+        }
+        .tag:hover { transform: translateY(-2px); background: var(--accent); color: #000; }
+
+        .col-span-2 { grid-column: span 2; } .col-span-3 { grid-column: span 3; }
+        .col-span-4 { grid-column: span 4; } .row-span-2 { grid-row: span 2; }
+
+        @media (max-width: 900px) {
+            .grid-collage { grid-template-columns: 1fr 1fr; }
+            .col-span-3, .col-span-4 { grid-column: span 2; }
+            .header-right-gifs { display: none; }
+            #chat-overlay { width: 90%; right: 5%; bottom: 20px; }
+            .hero-title { font-size: 2rem; }
+        }
+        @media (max-width: 600px) {
+            .grid-collage { grid-template-columns: 1fr; }
+            .col-span-2, .col-span-3, .col-span-4, .row-span-2 { grid-column: span 1; grid-row: span 1; }
+            .top-header { flex-direction: column; text-align: center; }
+            .header-text { margin-left: 0; margin-top: 10px; }
+            .hero-title { font-size: 1.6rem; }
+            .my-photo { width: 100px; height: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-video"></div>
+    <div class="overlay"></div>
+
+    <div class="container">
+
+        <div class="top-header">
+            <div class="header-left-group">
+                <img src="college_logo.png.jpg" alt="College Logo" class="college-logo-img">
+                <div class="header-text">
+                    <h2>Gayatri College of Engineering</h2>
+                    <p> | Department of Computer Science</p>
+                    <p> | B.Tech 5th Semester</p>
+                </div>
+            </div>
+            <div class="header-right-gifs">
+                <img src="tech.gif" alt="Tech Animation" class="gif-style">
+                <img src="work.gif" alt="Work Animation" class="gif-style">
+            </div>
+        </div>
+
+        <div class="grid-collage">
+
+            <div class="card hero-card col-span-3">
+                <span class="role-badge">☁️ DevOps & Network Security</span>
+                <h1 class="hero-title">Kalu Ch Sahu</h1>
+                <p style="font-size: 1.05rem; color: #fff;">
+                    Bridging the gap between <strong>Network Security</strong> and <strong>Cloud Orchestration</strong>. 
+                    <br>5th Semester Student & Microsoft Certified Expert.
+                </p>
+
+                <div style="display:flex;gap:0.8rem;margin-top:1rem;flex-wrap:wrap">
+                    <div style="background:rgba(0,0,0,0.15);border-radius:8px;padding:12px;min-width:160px">
+                        <strong style="color:var(--accent)">Current Role</strong>
+                        <div style="color:#fff;font-weight:700">DevOps Engineer</div>
+                        <div style="color:var(--text-muted)">AKS, CI/CD, Helm</div>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.12);border-radius:8px;padding:12px;min-width:160px">
+                        <strong style="color:var(--accent)">Past Experience</strong>
+                        <div style="color:#fff;font-weight:700">Network Security</div>
+                        <div style="color:var(--text-muted)">Aruba & Cisco</div>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.12);border-radius:8px;padding:12px;min-width:150px">
+                        <strong style="color:var(--accent)">Education</strong>
+                        <div style="color:#fff;font-weight:700">B.Tech, Gayatri College</div>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.12);border-radius:8px;padding:12px;min-width:160px">
+                        <strong style="color:var(--accent)">Certifications</strong>
+                        <div style="color:#fff;font-weight:700">AZ-400, AZ-204, AZ-900</div>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.12);border-radius:8px;padding:12px;min-width:150px">
+                        <strong style="color:var(--accent)">Contact</strong>
+                        <div style="color:#fff;font-weight:700">kalusahu902@gmail.com</div>
+                    </div>
+                </div>
+
+                <div class="tech-tags">
+                    <span class="tag">Azure AKS</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Terraform</span>
+                    <span class="tag">CI/CD</span>
+                    <span class="tag">GitHub Actions</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">CCNA / CCNP</span>
+                    <span class="tag">Linux / Bash</span>
+                    <span class="tag">Windows Server 2019</span>
+                    <span class="tag">AWS , AZURE , GCP</span>
+                </div>
+
+                <p style="margin-top:1rem;color:var(--text-muted)">Featured: Cloud Migration and DevOps professional with expertise in Azure, Kubernetes, and secure application modernization. Skilled in CI/CD automation, governance with Azure Policy, and implementing robust network security for enterprise workloads.</p>
+
+                <!-- removed Chat button from here on purpose -->
+
+                <div style="margin-top:2rem;color:var(--text-muted);text-align:right;">&copy; 2025 Kalu Ch Sahu</div>
+            </div>
+
+            <div class="card photo-card">
+                <img src="my_pic3.jpg" alt="Kalu Ch Sahu" class="my-photo">
+                <h3>Get in Touch</h3>
+                <a href="https://www.linkedin.com/in/kaluchsahu" target="_blank" class="linkedin-btn">
+                    <svg class="linkedin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    LinkedIn
+                </a>
+
+                <img src="bg.gif" alt="Tech Animation" class="sidebar-matrix-gif">
+                <p style="font-size: 0.85rem; margin-top: 0.5rem; color: #fff;">Open for DevOps Roles</p>
+
+                <!-- Chat button moved HERE, below "Open for DevOps Roles" -->
+                <a class="btn" href="javascript:void(0)" onclick="toggleChat()" style="width:160px;display:inline-block;margin-top:12px;background:linear-gradient(90deg,var(--ai-color),#8b5cf6);color:#fff;text-align:center">
+                    Chat with SK Pinkun
+                </a>
+
+                <a href="#" class="btn" style="width:140px;margin-top:12px;background:transparent;border:1px solid rgba(255,255,255,0.04)">Download Resume</a>
+            </div>
+
+            <div class="card">
+                <h3>Current Role</h3>
+                <p style="color: var(--accent); font-weight: bold;">DevOps Engineer</p>
+                <p>Specializing in Azure Kubernetes Service (AKS), Helm charts, and CI/CD pipelines.</p>
+            </div>
+
+            <div class="card">
+                <h3>Past Experience</h3>
+                <p style="color: var(--accent); font-weight: bold;">Network Security</p>
+                <p>Worked with <strong>Aruba & Cisco</strong> infrastructure. Switching, routing, and security.</p>
+            </div>
+
+            <div class="card ai-card" onclick="toggleChat()">
+                <div class="ai-avatar">
+                    <div class="ai-pulse"></div>
+                    <div class="ai-core"></div>
+                </div>
+                <div class="ai-text">
+                    "I am <strong>SK Pinkun</strong>. Click me to Chat!"
+                </div>
+                <div class="click-hint">(Powered by AI)</div>
+            </div>
+
+            <div class="card col-span-2">
+                <h3>Technical Stack</h3>
+                <div class="tech-tags" style="margin-top: 0.5rem;">
+                    <span class="tag">Azure AKS</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Terraform</span>
+                    <span class="tag">CI/CD</span>
+                    <span class="tag">GitHub Actions</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">CCNA / CCNP</span>
+                    <span class="tag">Linux / Bash</span>
+                     <span class="tag">Windows server 2019 </span>
+                     <span class="tag">Ansible</span>
+                     <span class="tag">Jenkins</span>
+                     <span class="tag">Prometheus</span>
+                     <span class="tag">Grafana</span>
+                     <span class="tag">Kubernetes</span>
+                     <span class="tag">Helm</span>
+                </div>
+            </div>
+            
+            <div class="card col-span-2">
+                <h3>Education</h3>
+                <div style="border-left: 2px solid var(--accent); padding-left: 1rem; margin-bottom: 1rem;">
+                    <strong style="color: #fff;">B.Tech Computer Science</strong>
+                    <p style="margin:0;">Gayatri College of Engineering</p>
+                </div>
+                <div style="border-left: 2px solid var(--accent); padding-left: 1rem;">
+                    <strong style="color: #fff;">Master in Cloud Computing</strong>
+                    <p style="margin:0;">NSDC & Jetking Institute</p>
+                </div>
+            </div>
+
+            <div class="card col-span-4">
+                <h3>Featured Project: Secure Cloud Migration</h3>
+                <p>
+                    Successfully architected a migration strategy moving on-premise legacy applications to <strong>Azure AKS</strong>. 
+                    Implemented <span style="color:var(--accent)">Ingress Controllers</span> for traffic management and secured the pipeline with <span style="color:var(--accent)">Azure Policy</span>.
+                </p>
+            </div>
+
+        </div> 
+
+        <footer style="text-align: center; margin-top: 3rem; color: var(--text-muted);">
+            <p>&copy; 2025 Kalu Ch Sahu Portfolio</p>
+        </footer>
+
+    </div>
+
+    <div id="chat-overlay">
+        <div class="chat-header">
+            <span>🤖 SK Pinkun (AI Assistant)</span>
+            <span class="close-chat" onclick="toggleChat()">✖</span>
+        </div>
+        <div class="chat-messages" id="chat-box">
+            <div class="message bot-msg">
+                Hello! I am <strong>SK Pinkun</strong>. 
+                <br>I am Kalu's virtual assistant 🧠. 
+                <br>Ask me about his skills, education, or contact info!
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="user-input" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+            <button id="send-btn" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+<script>
+    // HYBRID CLIENT CHAT (local KB + backend)
+    function toggleChat() {
+        const chatOverlay = document.getElementById('chat-overlay');
+        if (chatOverlay.style.display === 'flex') {
+            chatOverlay.style.display = 'none';
+        } else {
+            chatOverlay.style.display = 'flex';
+        }
+    }
+
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    }
+
+    async function sendMessage() {
+        const inputField = document.getElementById('user-input');
+        const chatBox = document.getElementById('chat-box');
+        const userMessage = inputField.value.trim();
+
+        if (userMessage === "") return;
+
+        const userDiv = document.createElement('div');
+        userDiv.className = 'message user-msg';
+        userDiv.textContent = userMessage;
+        chatBox.appendChild(userDiv);
+
+        inputField.value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'message bot-msg';
+        loadingDiv.textContent = "SK Pinkun is thinking...";
+        loadingDiv.id = "loading-msg";
+        chatBox.appendChild(loadingDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        const botResponse = await getHybridResponse(userMessage);
+
+        const loader = document.getElementById('loading-msg');
+        if (loader) loader.remove();
+
+        const botDiv = document.createElement('div');
+        botDiv.className = 'message bot-msg';
+        botDiv.innerHTML = botResponse.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        chatBox.appendChild(botDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    async function getHybridResponse(prompt) {
+        const lowerPrompt = prompt.toLowerCase();
+
+        if (lowerPrompt.includes("weather")) {
+            try {
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=17.68&longitude=83.21&current_weather=true');
+                const data = await res.json();
+                return `Current weather in Visakhapatnam: **${data.current_weather.temperature}°C**, Wind: ${data.current_weather.windspeed} km/h.`;
+            } catch (e) { return "Sensors are offline, but it feels like good weather to code!"; }
+        }
+        if (lowerPrompt.includes("time") || lowerPrompt.includes("date")) {
+            return "Current System Time: " + new Date().toLocaleString();
+        }
+
+        // Local profile answers (fast)
+        const local = getLocalFallbackResponse(lowerPrompt);
+        if (local) return local;
+
+        // otherwise call backend
+        try {
+            const resp = await fetch('/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt, system: "You are SK Pinkun, AI assistant for Kalu Ch Sahu. Keep answers short and professional." })
+            });
+            if (!resp.ok) throw new Error('Server error');
+            const data = await resp.json();
+            return data.reply || "Sorry, no reply from server.";
+        } catch (e) {
+            return "I am operating in Offline Mode. Please ask about: **Skills**, **Experience**, **Education**, or **Contact**.";
+        }
+    }
+
+    function getLocalFallbackResponse(text) {
+        if (text.includes("hi") || text.includes("hello") || text.includes("hey"))
+            return "Hello! I am SK Pinkun. Ask me about Kalu's **Experience**, **Skills**, or **Contact** info.";
+
+        if (text.includes("kalu") || text.includes("who") || text.includes("name"))
+            return "Kalu Ch Sahu is a **DevOps Engineer** & **Network Security Specialist**. He is currently a 5th-semester B.Tech student at Gayatri College.";
+
+        if (text.includes("linkedin") || text.includes("link") || text.includes("profile"))
+            return "You can view his LinkedIn profile by clicking the **LinkedIn** button in the right column.";
+
+        if (text.includes("experience") || text.includes("work") || text.includes("job") || text.includes("past"))
+            return "Kalu worked as a **Network Security Engineer** with **Aruba & Cisco** infrastructure before specializing in **DevOps (Azure AKS, Docker)**.";
+
+        if (text.includes("skill") || text.includes("tech") || text.includes("know"))
+            return "He is expert in: **Azure Kubernetes (AKS), Docker, Terraform, CI/CD, Python, and Cisco Networking**.";
+
+        if (text.includes("education") || text.includes("college") || text.includes("score") || text.includes("marks"))
+            return "He is studying **Computer Science** at **Gayatri College of Engineering** (5th Semester). He maintains a strong academic record.";
+
+        if (text.includes("mail") || text.includes("email") || text.includes("send") || text.includes("contact") || text.includes("number") || text.includes("phone"))
+            return "You can email Kalu at **kalusahu902@gmail.com** or call him at **960xxxxxx0**. You can also click the LinkedIn button!";
+
+        if (text.includes("certi") || text.includes("az"))
+            return "He holds multiple Microsoft certifications: **AZ-400 (DevOps Expert)**, **AZ-204**, and **AZ-900**.";
+
+        if (text.includes("docker"))
+            return "Docker is a platform that packages applications and their dependencies into lightweight containers to run consistently across environments.";
+
+        if (text.includes("terraform"))
+            return "Terraform is an Infrastructure-as-Code tool that lets you provision cloud resources using code.";
+
+        return null;
+    }
+</script>
+
+</body>
+</html>
